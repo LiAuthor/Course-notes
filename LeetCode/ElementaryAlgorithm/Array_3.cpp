@@ -2,8 +2,33 @@
 #include"vector"
 #include"algorithm"
 using namespace std;
+vector<int> plusOne(vector<int>& digits) {
+    digits[digits.size()-1]+=1;
+    //两位数及以上进入for循环
+    for(int i=digits.size()-1;i>0;i--){
+        if(digits[i]==10){
+            digits[i]=0;
+            digits[i-1]+=1;
+            if(digits[i-1]!=10) break;
+        }   
+        else{
+            break;
+        }
+    }
+    if(digits[0]==10){
+        digits[0]=0;
+        digits.insert(digits.begin(),1);
+    }
+
+    for(int num:digits)
+        cout<<num<<" ";
+    cout<<endl;
+
+    return digits;
+}
 int main(){
-    vector<int> num={1,2};
+    vector<int> nums={9,9,9,9,9};
+    /*
     int k=3;
     int len=num.size();
     k%=len;
@@ -14,5 +39,7 @@ int main(){
         cout<<num[i]<<" ";
     }
     cout<<endl;
+    */
+    plusOne(nums);
     return 0;
 }

@@ -22,9 +22,15 @@ all_image_paths = [str(path) for path in all_image_paths]
 random.shuffle(all_image_paths)
 
 train_images = []
+'''
 for image in all_image_paths:
     # print((os.path.join(image)))
     train_images.append(Image.open(os.path.join(image)))
+'''
+for image in all_image_paths:
+    # print((os.path.join(image)))
+    with Image.open(os.path.join(image)) as img:
+        train_images.append(img)
 
 matplotlib.use('WebAgg')
 train_labels = [pathlib.Path(path).parent.name for path in all_image_paths]
@@ -99,7 +105,7 @@ model.compile(optimizer='adam',
                   from_logits=True),
               metrics=['accuracy'])
 
-epochs = 15
+epochs = 5
 history = model.fit(
     train_ds,
     validation_data=val_ds,
@@ -107,7 +113,7 @@ history = model.fit(
 )
 
 # 保存权重
-model.save_weights('./checkpoints/Flowers/Flowers_checkpoint')
+model.save_weights('./checkpoints/Flowers/Temp/Flowers_checkpoint')
 
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
